@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div id="cart-item-first" class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default" id="minusBtnPhone"><i class="fas fa-minus"></i></button>
+                           <input id="phone-amount" type="text" class="form-control text-center" value="1">
+                           <button class="btn btn-default" id="plusBtnPhone"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="phone-price">1219</span></h5>
+                        <button id="remove-item-first" style="border: none;"><img src="images/remove.png" alt="" class="remove-item"></button>
+                     </div>
+                  </div>
+               </div>
+
+               <div id="cart-item-second" class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minusBtnCase" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="case-amount" type="text" class="form-control text-center" value="1">
+                           <button id="plusBtnCase" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="case-price">59</span></h5>
+                        <button id="remove-item-second" style="border: none;"><img src="images/remove.png" alt="" class="remove-item"></button>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotal">1278</span></h5>
+                        <h5>$0</h5>
+                        <h5>$ <span id="total">1278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+      document.getElementById("plusBtnPhone").addEventListener("click", function(){
+         const amount = getInput("phone-amount");
+         document.getElementById("phone-amount").value = amount;
+         updateSpanTextPhone(amount, "phone-price");
+         showSubTotal("subTotal");
+      })
+      
+      document.getElementById("plusBtnCase").addEventListener("click", function(){
+         const amount = getInput("case-amount");
+         document.getElementById("case-amount").value = amount;
+         updateSpanTextCase(amount, "case-price");
+         showSubTotal("subTotal");
+      })
+      function updateSpanTextPhone(number, id){
+         const totalPhonePrice = 1219*number;
+         document.getElementById(id).innerText = totalPhonePrice;
+         return totalPhonePrice;
+      }
+
+      function updateSpanTextCase(number, id){
+         const totalCasePrice = 59*number;
+         document.getElementById(id).innerText = totalCasePrice;
+         return totalCasePrice;
+      }
+       function getInput(id){
+         const num1 = document.getElementById(id).value;
+         let num2 = parseFloat(num1);
+         return num2+1;
+       }
+      
+      document.getElementById("minusBtnPhone").addEventListener("click", function(){
+         const amount = getInputMinus("phone-amount");
+         document.getElementById("phone-amount").value = amount;
+         updateSpanTextPhone(amount, "phone-price");
+         showSubTotal("subTotal");
+      })
+
+      document.getElementById("minusBtnCase").addEventListener("click", function(){
+         const amount = getInputMinus("case-amount");
+         document.getElementById("case-amount").value = amount;
+         updateSpanTextCase(amount, "case-price");
+         showSubTotal("subTotal");
+      })
+      function getInputMinus(id){
+         const num1 = document.getElementById(id).value;
+         let num2 = parseFloat(num1);
+         
+         if(num1 == 0){
+             return 0;
+         }
+         else{
+            return num2-1;
+         }
+      }
+
+      function showSubTotal(id){
+         num1 = parseFloat(document.getElementById("phone-price").innerText);
+         num2 = parseFloat(document.getElementById("case-price").innerText);
+         document.getElementById("subTotal").innerText = num1+num2;
+         document.getElementById("total").innerText = num1+num2;
+         
+      }
+
+      document.getElementById("remove-item-second").addEventListener("click", function(){
+         document.getElementById("cart-item-second").style.display = "none";
+         const temp = 0;
+         updateSpanTextPhone(temp, "case-price");
+         showSubTotal("subTotal");
+      })
+      document.getElementById("remove-item-first").addEventListener("click", function(){
+         document.getElementById("cart-item-first").style.display = "none";
+         const temp = 0;
+         updateSpanTextPhone(temp, "phone-price");
+         showSubTotal("subTotal");
+      })
+
+      
+   </script>
+</body>
+
+</html>
